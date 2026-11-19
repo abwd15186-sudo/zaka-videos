@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:C;src:url(Cairo.ttf)}
+html,body{margin:0;width:1080px;height:960px;overflow:hidden;background:#07070a;font-family:C;color:#fff}
+#bg{position:absolute;inset:0;background-image:radial-gradient(rgba(255,140,60,.18) 1.5px,transparent 1.6px);background-size:36px 36px}
+#glow{position:absolute;left:50%;top:45%;width:900px;height:900px;margin:-450px;border-radius:50%;background:radial-gradient(rgba(255,120,40,.35),transparent 65%)}
+#ep{position:absolute;top:40px;right:50px;font-size:30px;font-weight:700;color:#ff8a3d;letter-spacing:2px}
+#bar{position:absolute;top:58px;left:50px;width:300px;height:6px;background:rgba(255,255,255,.12);border-radius:3px}#bar i{display:block;height:100%;background:#ff8a3d;border-radius:3px}
+#name{position:absolute;width:100%;top:250px;text-align:center;font-size:150px;font-weight:900;letter-spacing:6px}
+#ar{position:absolute;width:100%;top:470px;text-align:center;font-size:62px;font-weight:700;direction:rtl}
+#ar b{background:#ff8a3d;color:#130a04;padding:0 18px;border-radius:14px}
+#num{position:absolute;width:100%;top:640px;text-align:center;font-size:120px;font-weight:900;color:#ff8a3d;text-shadow:0 0 40px rgba(255,138,61,.6)}
+#lbl{position:absolute;width:100%;top:800px;text-align:center;font-size:40px;color:#ffd9bf;direction:rtl}
+</style></head><body><div id="bg"></div><div id="glow"></div><div id="ep">حلقة 02</div><div id="bar"><i></i></div>
+<div id="name">GOOGLE LENS</div><div id="ar">انسخ <b>الملزمة</b> بثانية</div><div id="num">0</div><div id="lbl">لغة يترجمها مجاناً</div>
+<script>
+const E=(x)=>1-Math.pow(1-Math.min(Math.max(x,0),1),3), B=(x)=>{x=Math.min(Math.max(x,0),1);const c=1.7;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+window.setT=(t)=>{
+ const n=document.getElementById('name');const letters='GOOGLE LENS';const k=Math.floor(E(t/1.0)*letters.length);
+ n.textContent=letters.slice(0,k)+(k<letters.length&&t<1.2?'|':'');n.style.transform=`scale(${0.9+0.1*B(t/0.8)})`;n.style.filter=`blur(${(1-E(t/0.6))*12}px)`;
+ const a=document.getElementById('ar');a.style.opacity=E((t-1.0)/0.4);a.style.transform=`translateY(${(1-B((t-1.0)/0.5))*60}px)`;
+ const v=Math.round(E((t-1.6)/1.4)*100);const nm=document.getElementById('num');nm.textContent='+'+v;nm.style.opacity=E((t-1.5)/0.3);nm.style.transform=`scale(${0.6+0.4*B((t-1.5)/0.5)})`;
+ document.getElementById('lbl').style.opacity=E((t-2.0)/0.4);
+ document.querySelector('#bar i').style.width=(Math.min(t/4,1)*100)+'%';
+ document.getElementById('glow').style.transform=`scale(${1+0.06*Math.sin(t*2)})`;
+ document.getElementById('bg').style.backgroundPosition=`${t*20}px ${t*12}px`;
+};setT(0);
+</script></body></html>
